@@ -1,4 +1,5 @@
 Author: Sam Cole
+Copyright: N/A. Public Domain. Whatevs.
 
 An awesome slideshow that uses a single sprite.
 
@@ -11,8 +12,8 @@ Let's do some ASCII art!
 |                          |
 |                          |    CSS: background-image: url('sprite.jpg');
 |                          |         background-repeat: no-repeat;
-|                          |         height: 255px
-+--------------------------+         width: 340px
+|                          |         height: 255px /*EXAMPLE*/
++--------------------------+         width: 340px /*EXAMPLE*/
 
 <DIV>
   <A CLASS="left">

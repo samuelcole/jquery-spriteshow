@@ -1,0 +1,58 @@
+Author: Sam Cole
+
+An awesome slideshow that uses a single sprite.
+
+Let's do some ASCII art!
+
++--------------------------+
+|                          |
+|                          |
+|                          | <- <DIV, YALL>
+|                          |
+|                          |    CSS: background-image: url('sprite.jpg');
+|                          |         background-repeat: no-repeat;
+|                          |         height: 255px
++--------------------------+         width: 340px
+
+<DIV>
+  <A CLASS="left">
+  <A CLASS="play-pause">
+  <A CLASS="right">
+</DIV>
+
+^ CONTROLS YALL ^
+
++--------------------------+
+|                          |
+|                          |
+|                          |
+|        <IMAGE 1>         |
+|                          |
+|                          |
+|                          |
++--------------------------+
+|                          |
+|                          |
+|                          |
+|        <IMAGE 2>         | <- <SPRITE, YALL>
+|                          |
+|                          |
+|                          |
++--------------------------+
+|                          |
+|                          |
+|                          |
+|        <IMAGE 3>         |
+|                          |
+|                          |
+|                          |
++--------------------------+
+
+DO IT, TO IT:
+
+$('div.yall').spriteshow({                                       
+  controls: $(div.controls_yall),                                                               
+  effect: 'fade', //fancy effect!                                                                   
+  number: 3, //number of baller images
+  play_delay: 5000 //rotate every 5000 milliseconds
+});        

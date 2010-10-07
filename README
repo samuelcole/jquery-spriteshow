@@ -52,7 +52,7 @@ Let's do some ASCII art!
 DO IT, TO IT:
 
 $('div.yall').spriteshow({
-  controls: $(div.controls_yall),
+  controls: $('div.controls_yall'),
   effect: 'fade', //fancy effect!
   number: 3, //number of baller images
   play_delay: 5000 //rotate every 5000 milliseconds

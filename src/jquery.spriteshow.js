@@ -16,7 +16,11 @@ function Spriteshow($elem, options) {
   this.options = options;
 
   this.$target = this.options.target || $elem;
-  this.offset = this.$target.height();
+  if(this.options.sprite_orientation && this.options.sprite_orientation == 'horizontal') {
+    this.offset = this.$target.width();
+  } else {
+    this.offset = this.$target.height();
+  }
   this.index = 0;
   this.playing = true;
 
@@ -47,23 +51,25 @@ $.extend(Spriteshow.prototype, {
       _this.set_index($(this).index());
       _this.pause();
     });
-    this.options.controls.children('.left').click(function(e) {
-      e.preventDefault();
-      _this.page_left();
-      _this.pause();
-    });
-    this.options.controls.children('.right').click(function(e) {
-      e.preventDefault();
-      _this.page_right();
-      _this.pause();
-    });
-    this.options.controls.children('.play-pause').click(function(e) {
-      if(_this.playing) {
+    if(this.options.controls) {
+      this.options.controls.children('.left').click(function(e) {
+        e.preventDefault();
+        _this.page_left();
         _this.pause();
-      } else {
-        _this.play();
-      }
-    });
+      });
+      this.options.controls.children('.right').click(function(e) {
+        e.preventDefault();
+        _this.page_right();
+        _this.pause();
+      });
+      this.options.controls.children('.play-pause').click(function(e) {
+        if(_this.playing) {
+          _this.pause();
+        } else {
+          _this.play();
+        }
+      });
+    }
   },
   update_offset: function() {
     var _this = this;
@@ -78,7 +84,11 @@ $.extend(Spriteshow.prototype, {
     }
 
     this.current_offset = this.index * this.offset;
-    this.$target.css('background-position', '0 -' + this.current_offset + 'px');
+    if(this.options.sprite_orientation && this.options.sprite_orientation == 'horizontal') {
+      this.$target.css('background-position', '-' + this.current_offset + 'px 0');
+    } else {
+      this.$target.css('background-position', '0 -' + this.current_offset + 'px');
+    }
   },
   set_index: function(index) {
     this.index = index;
@@ -101,16 +111,36 @@ $.extend(Spriteshow.prototype, {
     var _this = this;
     this.play_timeout = setTimeout(function() {
       if(_this.playing && _this.options.should_autoadvance_callback()) _this.page_right();
+      if(_this.options.pause_when_behind_by) {
+        var right_now = (new Date()).getTime();
+        if(_this.last_play_date && Math.abs(_this.last_play_date - right_now - _this.options.play_delay) > _this.options.pause_when_behind_by) {
+          if(!_this.slow_strikes) {
+            _this.slow_strikes = 0;
+          } else {
+            _this.slow_strikes += 1;
+          }
+          if(_this.slow_strikes > 3) {
+            _this.pause();
+          }
+        } else {
+          _this.slow_strikes = 0;
+        }
+        _this.last_play_date = right_now;
+      }
       _this.playing_timer();
     }, this.options.play_delay);
   },
   play: function() {
     this.playing = true;
-    this.options.controls.children('.play-pause').removeClass('spriteshow-play').addClass('spriteshow-pause');
+    if(this.options.controls) {
+      this.options.controls.children('.play-pause').removeClass('spriteshow-play').addClass('spriteshow-pause');
+    }
   },
   pause: function() {
     this.playing = false;
-    this.options.controls.children('.play-pause').removeClass('spriteshow-pause').addClass('spriteshow-play');
+    if(this.options.controls) {
+      this.options.controls.children('.play-pause').removeClass('spriteshow-pause').addClass('spriteshow-play');
+    }
   }
 });
 

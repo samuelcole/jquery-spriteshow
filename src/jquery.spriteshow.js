@@ -27,7 +27,6 @@
     this.update_offset();
     this._attach();
 
-    var _this = this;
     if (options.play_delay) {
       this.playing_timer();
     }
@@ -63,7 +62,7 @@
           _this.page_right();
           _this.pause();
         });
-        this.options.controls.children('.play-pause').click(function (e) {
+        this.options.controls.children('.play-pause').click(function () {
           if (_this.playing) {
             _this.pause();
           } else {
@@ -73,8 +72,7 @@
       }
     },
     update_offset: function () {
-      var _this = this,
-        $new_image = $([]);
+      var $new_image = $([]);
       if (this.options.effect === 'fade') {
         $new_image = this.$target.clone();
         this.$target.css('position', 'absolute');
@@ -87,15 +85,15 @@
 
       this.current_offset = this.index * this.offset;
       if (this.options.sprite_orientation && this.options.sprite_orientation === 'horizontal') {
-        this.$target.css('background-position', '-' + this.current_offset + 'px 0');
+        this.$target.css('background-position', '-' + this.current_offset.toString() + 'px 0');
       } else {
-        this.$target.css('background-position', '0 -' + this.current_offset + 'px');
+        this.$target.css('background-position', '0 -' + this.current_offset.toString() + 'px');
       }
     },
     set_index: function (index) {
       this.index = index;
       this.$index_control_children.removeClass('selected');
-      this.$index_control_children.filter(':eq(' + index + ')').addClass('selected');
+      this.$index_control_children.filter(':eq(' + index.toString() + ')').addClass('selected');
       this.$target.trigger('spriteshow:index', [index]);
       this.update_offset();
     },

@@ -108,6 +108,9 @@
       var target_index = this.index + 1;
       if (target_index >= this.number) {
         target_index = 0;
+        if (this.options.play_once) {
+          this.pause();
+        }
       }
       this.set_index(target_index);
     },
